@@ -31,4 +31,14 @@ class UI_Testing_UITests: XCTestCase {
         super.tearDown()
     }
     
+    
+    // MARK: - UI Tests
+    func testUIIsAsWeExpect() {
+        let application = XCUIApplication()
+        
+        XCTAssert(application.activityIndicators.count == 0, "Spinner should not be present")
+        XCTAssertTrue(application.staticTexts["Unknown"].exists, "Could not find my label")
+        XCTAssertTrue(application.buttons["Do Something"].exists, "Could not find my button")
+    }
+    
 }

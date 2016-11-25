@@ -41,4 +41,21 @@ class UI_Testing_UITests: XCTestCase {
         XCTAssertTrue(application.buttons["Do Something"].exists, "Could not find my button")
     }
     
+    func testButtonTap() {
+        let application = XCUIApplication()
+        application.buttons["Do Something"].tap()
+        
+        XCTAssert(application.activityIndicators.count == 1, "Spinner should be present")
+        
+        let label = application.staticTexts["Hello World"]
+        self.expectation(for: NSPredicate(format: "exists == 1"),
+                         evaluatedWith: label,
+                         handler: nil)
+        self.expectation(for: NSPredicate(format: "count == 0"),
+                         evaluatedWith: application.activityIndicators,
+                         handler: nil)
+        
+        self.waitForExpectations(timeout: 5, handler: nil)
+    }
+    
 }

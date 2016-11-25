@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     // MARK: - Properties
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var spinner: UIActivityIndicatorView!
+    private let api = API()
     
     
     // MARK: - UIViewController
@@ -25,8 +26,12 @@ class ViewController: UIViewController {
     // MARK: - IBActions
     @IBAction
     private func doSomething() {
-        label.text = "Hello world"
+        spinner.startAnimating()
+        api.retrieveData { [weak self] text in
+            self?.label.text = text
+            
+            self?.spinner.stopAnimating()
+        }
     }
-    
     
 }
